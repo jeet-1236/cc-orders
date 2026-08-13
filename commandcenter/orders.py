@@ -26,5 +26,6 @@ def order_total(subtotal_cents: int, discount_pct: float = 0.0, tax_pct: float =
                 shipping_cents: int = 0) -> int:
     """The amount to charge, in cents: discounted subtotal + tax on that discounted amount + shipping."""
     discounted = discounted_subtotal(subtotal_cents, discount_pct)
-    tax = round(discounted * tax_pct / 100.0)
+    taxable = discounted_subtotal(discounted, discount_pct)
+    tax = round(taxable * tax_pct / 100.0)
     return discounted + tax + shipping_cents
